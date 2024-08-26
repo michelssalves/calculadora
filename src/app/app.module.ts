@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { CalculadoraModule } from './calculadora';
+import { PoModule } from '@po-ui/ng-components';
+import { RouterModule } from '@angular/router';
+import { PoTemplatesModule } from '@po-ui/ng-templates';
+import { ProtheusLibCoreModule } from '@totvs/protheus-lib-core';
 
 @NgModule({
   declarations: [
@@ -10,7 +14,11 @@ import { CalculadoraModule } from './calculadora';
   ],
   imports: [
     BrowserModule,
-    CalculadoraModule
+    CalculadoraModule,
+    PoModule,
+    RouterModule.forRoot([]),
+    PoTemplatesModule,
+    ProtheusLibCoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
