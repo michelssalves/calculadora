@@ -1,9 +1,8 @@
 <div class="po-wrapper">
-  <po-toolbar p-title="Calculadora"></po-toolbar>
-
+  <po-toolbar p-title="Workflow de Medições"></po-toolbar>
   <po-menu [p-menus]="menus"></po-menu>
+  <po-page-default p-title="Medicões">
+    <router-outlet></router-outlet>  
+  </po-page-default> 
 
-  <po-page-default p-title="Calculadora">
-    <app-calculadora></app-calculadora>
-  </po-page-default>
 </div>
