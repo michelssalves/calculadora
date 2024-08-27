@@ -7,10 +7,12 @@ import { PoModule } from '@po-ui/ng-components';
 import { RouterModule } from '@angular/router';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { ProtheusLibCoreModule } from '@totvs/protheus-lib-core';
+import { ComponentsComponent } from './medicoes/components/components.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ComponentsComponent
   ],
   imports: [
     BrowserModule,
