@@ -14,21 +14,15 @@ export class MedicoesComponent implements OnInit {
   @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
   @ViewChild('optionsForm', { static: true }) form!: NgForm;
 
-  medicoes: any[] = []; // Definindo como um array de objetos
+  medicoes: any[] = [];
   selectedItem: any = {};
   event: string = '';
+  dataAtual: Date = new Date();
+  dataFormatada: string;
   isGerenciadora: boolean = false;
   isNFEmitida: boolean = false;
-
-  onGerenciadoraChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.isGerenciadora = selectElement.value === 'true';
-  }
-  onNfEmitidaChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.isNFEmitida = selectElement.value === 'true';
-  }
   gerenciadoraSelecionada: string | undefined;
+  
   
   close: PoModalAction = {
     action: () => this.closeModal(),
@@ -42,25 +36,16 @@ export class MedicoesComponent implements OnInit {
   };
 
   constructor(private medicoesService: MedicoesService) {
-
-    //this.isGerenciadora = true
-    console.log(this.isGerenciadora)
-   }
-
-  columns = [
-    { property: 'medicao', label: 'Medição' },
-    { property: 'contrato', label: 'Nº Contrato' },
-    { property: 'revisao', label: 'Nº Revisao' },
-    { property: 'competencia', label: 'Competencia' },
-    { property: 'fornecedor', label: 'Fornecedor' },
-    { property: 'Cnpj', label: 'Cnpj' },
-    { property: 'valor', label: 'Valor' }
-  ];
-
-
-
-  ngOnInit() {
+    this.dataFormatada = this.formatarData(this.dataAtual);
   
+  }
+  formatarData(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    const dia = data.getDate().toString().padStart(2, '0'); // Adiciona zero à esquerda se necessário
+    return `${ano}-${mes}-${dia}`;
+  }
+  ngOnInit() {
     this.medicoesService.getData().subscribe({
       next: (response) => {
         if (response && response.objects) {
@@ -75,36 +60,33 @@ export class MedicoesComponent implements OnInit {
       }
     });
   }
-
+  onGerenciadoraChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.isGerenciadora = selectElement.value === 'true';
+  }
+  onNfEmitidaChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.isNFEmitida = selectElement.value === 'true';
+  }
   changeEvent(event: string) {
     this.event = event;
   }
-
   openModal(item: any) {
     this.selectedItem = item;
-    console.log(this.selectedItem);
     this.poModal.open();
   }
-
   closeModal() {
-    this.form.reset();
     this.poModal.close();
   }
-
   processOrder() {
     if (this.form.invalid) {
       console.error('Escolha os itens para confirmar o pedido.');
     } else {
       this.confirm.loading = true;
-
       setTimeout(() => {
         this.confirm.loading = false;
         this.closeModal();
       }, 700);
     }
-  }
-
-  restore() {
-    this.form.reset();
   }
 }

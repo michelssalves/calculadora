@@ -2,7 +2,7 @@
 
 User Function Calculadora()
 
-    FwCallApp("calculadora")
+    FwCallApp("poui-compras")
 
 Return 
 

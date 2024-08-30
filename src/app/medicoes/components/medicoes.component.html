@@ -5,26 +5,20 @@
         <table class="table table-striped table-bordered">
       <thead>
         <tr>
-          <th>Medição</th>
+          <th>Staus</th>
           <th>Nº Contrato</th>
-          <th>Nº Revisão</th>
-          <th>Competência</th>
           <th>Fornecedor</th>
           <th>Cnpj</th>
-          <th>Valor</th>
-          <th>Valor</th>
-          <th>Valor</th>
+          <th>Medição</th>
+          <th>Vlr TT</th>
         </tr>
       </thead>
       <tbody> 
         <tr (click)="openModal(item)" *ngFor="let item of medicoes">
           <td>{{ item.medicao }}</td>
           <td>{{ item.contrato }}</td>
-          <td>{{ item.revisao }}</td>
-          <td>{{ item.competencia }}</td>
           <td>{{ item.fornecedor }}</td>
           <td>{{ item.cnpj }}</td>
-          <td>{{ item.valor }}</td>
           <td>{{ item.totalMedicao }}</td>
           <td>{{ item.valorContrato }}</td>
         </tr>
@@ -34,54 +28,54 @@
 </div>
   </div>
 </po-container> 
-  <po-modal p-title="Aprovação de Medição" [p-primary-action]="confirm" [p-secondary-action]="close">
+  <po-modal p-size="auto" p-title="Aprovação de Medição" [p-primary-action]="confirm" [p-secondary-action]="close">
     <div class="container">
     <form #optionsForm="ngForm" class="row g-4">
       <div class="col-md-4">
         <label for="inputEmail4" class="form-label">Nº Contrato</label>
-        <input type="text" [(ngModel)]="selectedItem.contrato" name="contrato" class="form-control" id="inputEmail4">
+        <input type="text" [(ngModel)]="selectedItem.contrato" name="contrato" class="form-control" id="inputEmail4" readonly>
       </div>
       <div class="col-md-8">
         <label for="inputEmail4" class="form-label">Descrição</label>
-        <input type="text" [(ngModel)]="selectedItem.fornecedor" name="descricao" class="form-control" id="inputEmail4">
+        <input type="text" [(ngModel)]="selectedItem.fornecedor" name="descricao" class="form-control" id="inputEmail4" readonly>
       </div>
         <div class="col-md-3">
           <label for="inputEmail4" class="form-label">Valor</label>
-          <input type="text" [(ngModel)]="selectedItem.valorContrato" name="valor" class="form-control" id="inputEmail4">
+          <input type="text" [(ngModel)]="selectedItem.valorContrato" name="valor" class="form-control" id="inputEmail4" readonly>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">Moeda</label>
-          <input type="text" value="BRL" name="m2" class="form-control" id="inputPassword4">
+          <input type="text" value="BRL" name="m2" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-md-6">
           <label for="inputPassword4" class="form-label">CNPJ</label>
-          <input type="text" [(ngModel)]="selectedItem.cnpj" name="cnpj" class="form-control" id="inputPassword4">
+          <input type="text" [(ngModel)]="selectedItem.cnpj" name="cnpj" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-3">
           <label for="inputAddress" class="form-label">Medição</label>
-          <input type="text" [(ngModel)]="selectedItem.totalMedicao" name="totalMedicao" class="form-control" id="inputAddress">
+          <input type="text" [(ngModel)]="selectedItem.totalMedicao" name="totalMedicao" class="form-control" id="inputAddress" readonly>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">Moeda</label>
-          <input type="text" value="BRL" name="m2" class="form-control" id="inputPassword4">
+          <input type="text" value="BRL" name="m2" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">%</label>
-          <input type="text" value="0" name="p3" class="form-control" id="inputPassword4">
+          <input type="text" value="0" name="p3" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-md-4">
         </div>
         <div class="col-3">
           <label for="inputAddress" class="form-label">Saldo</label>
-          <input type="text" [(ngModel)]="selectedItem.saldoPos" name="saldoPos" class="form-control" id="inputAddress">
+          <input type="text" [(ngModel)]="selectedItem.saldoPos" name="saldoPos" class="form-control" id="inputAddress" readonly>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">Moeda</label>
-          <input type="text" value="BRL" name="m3" name="cnpj" class="form-control" id="inputPassword4">
+          <input type="text" value="BRL" name="m3" name="cnpj" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">%</label>
-          <input type="text" value="0" name="p3" class="form-control" id="inputPassword4">
+          <input type="text" value="0" name="p3" class="form-control" id="inputPassword4" readonly>
         </div>
         <div class="col-md-4">
         </div>
@@ -133,13 +127,12 @@
         </div>
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">Data Limite Aprovaçao</label>
-          <input type="text" name="descricao" class="form-control" id="inputEmail4">
+          <input type="date" name="descricao"  [value]="dataFormatada" class="form-control" id="inputEmail4">
         </div>
       </form>
     </div>
     <po-modal-footer [p-disabled-align]="false">
-      <po-button [p-danger]="true" p-label="Close" (click)="closeModal()">Close</po-button>
-      <po-button p-label="Clear" (click)="restore()">Clear</po-button>
+      <po-button p-kind="danger"  p-label="Close" (click)="closeModal()">Close</po-button>
       <po-button p-kind="primary" p-label="Confirm" (click)="processOrder()">Confirm</po-button>
     </po-modal-footer>
   </po-modal>
